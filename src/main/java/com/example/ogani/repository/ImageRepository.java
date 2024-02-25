@@ -13,4 +13,7 @@ public interface ImageRepository extends JpaRepository<Image,Long> {
     
     @Query(nativeQuery = true, value = "SELECT * FROM image WHERE uploaded_by = ?1")
     public List<Image> getListImageOfUser(long userId);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM image WHERE used_type = 'product'")
+    public List<Image> getListImageOfProduct();
 }

@@ -27,6 +27,8 @@ public class Image {
 
     private String type;
 
+    private String usedType;
+
     private long size;
 
     @Lob

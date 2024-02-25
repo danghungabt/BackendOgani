@@ -31,7 +31,7 @@ public class ImageController {
 
     @GetMapping("/")
     public ResponseEntity<?> getList(){
-        List<Image> listImage = imageService.getListImage();
+        List<Image> listImage = imageService.getListImageOfProduct();
 
         return  ResponseEntity.ok(listImage);
     }

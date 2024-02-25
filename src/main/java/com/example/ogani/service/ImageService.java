@@ -7,11 +7,14 @@ import com.example.ogani.entity.Image;
 public interface ImageService {
     List<Image> getListImage();
 
+    List<Image> getListImageOfProduct();
+
     Image getImageById(long id);
 
     Image save(Image image);
 
     List<Image> getListByUser(long userId);
+
 
     void deleteImage(long id);
 }

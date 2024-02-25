@@ -27,6 +27,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public List<Image> getListImageOfProduct() {
+        return imageRepository.getListImageOfProduct();
+    }
+
+    @Override
     public Image getImageById(long id) {
         // TODO Auto-generated method stub
         Image image = imageRepository.findById(id).orElseThrow(() -> new NotFoundException("Image not found width id :" + id));
