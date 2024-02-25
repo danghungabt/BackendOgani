@@ -64,6 +64,7 @@ public class ImageController {
                 img.setSize(file.getSize());
                 img.setType(extension);
                 img.setData(file.getBytes());
+                img.setUsedType("product");
                 String uid = UUID.randomUUID().toString();
                 String link = UPLOAD_DIR + uid + "." + extension;
                 // Create file
