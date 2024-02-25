@@ -2,6 +2,7 @@ package com.example.ogani.service.impl;
 
 import java.util.List;
 
+import com.example.ogani.repository.ProductImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +10,15 @@ import com.example.ogani.entity.Image;
 import com.example.ogani.exception.NotFoundException;
 import com.example.ogani.repository.ImageRepository;
 import com.example.ogani.service.ImageService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ImageServiceImpl implements ImageService {
     @Autowired
     private ImageRepository imageRepository;
+
+    @Autowired
+    private ProductImageRepository productImageRepository;
 
     @Override
     public List<Image> getListImage() {
@@ -43,8 +48,10 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    @Transactional
     public void deleteImage(long id) {
         // TODO Auto-generated method stub
-        
+        productImageRepository.deleteByImageId(id);
+        imageRepository.deleteById(id);
     }
 }
