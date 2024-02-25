@@ -3,7 +3,9 @@ package com.example.ogani.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.ogani.entity.Product;
@@ -26,7 +28,10 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query(value = "Select * from Product where category_id = :id and price between :min and :max",nativeQuery = true)
     List<Product> getListProductByPriceRange(long id,int min,int max);
 
-    @Query(value= "Select p from Product p where p.name like %:keyword% order by id desc")
+    @Query(value= "Select p from Product p where p.name like %:keyword% order by p.id desc")
     List<Product> searchProduct(String keyword);
 
+    @Modifying
+    @Query(value = "UPDATE Product p SET p.category_id = :categoryId WHERE p.id IN :productIds", nativeQuery = true)
+    void updateProductsCategory(@Param("categoryId") Long categoryId, @Param("productIds") List<Long> productIds);
 }

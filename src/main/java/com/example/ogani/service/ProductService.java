@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.ogani.entity.Product;
 import com.example.ogani.model.request.CreateProductRequest;
+import com.example.ogani.model.request.UpdateCategoryForProductRequest;
 
 public interface ProductService {
     
@@ -28,5 +29,7 @@ public interface ProductService {
     Product updateProduct(long id, CreateProductRequest request);
 
     void deleteProduct(long id);
+
+    void updateProductsCategory(UpdateCategoryForProductRequest request);
 
 }

@@ -1,7 +1,9 @@
 package com.example.ogani.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.example.ogani.model.request.UpdateCategoryForProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -105,12 +107,20 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    @PutMapping("/update-category")
+    @Operation(summary="Cập nhật lại category cho nhiều product")
+    public ResponseEntity<?> updateCategoryForProduct(@RequestBody UpdateCategoryForProductRequest request){
+        productService.updateProductsCategory(request);
+
+        return ResponseEntity.ok(new MessageResponse("Category of product is updated"));
+    }
+
     @DeleteMapping("/delete/{id}")
     @Operation(summary="Xóa sản phẩm bằng id")
     public ResponseEntity<?> deleteProduct(@PathVariable long id){
         productService.deleteProduct(id);
 
-        return ResponseEntity.ok(new MessageResponse("Product is d  elete"));
+        return ResponseEntity.ok(new MessageResponse("Product is delete"));
     }
 
 

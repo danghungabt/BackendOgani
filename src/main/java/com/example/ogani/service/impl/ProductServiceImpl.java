@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.example.ogani.model.request.UpdateCategoryForProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import com.example.ogani.repository.CategoryRepository;
 import com.example.ogani.repository.ImageRepository;
 import com.example.ogani.repository.ProductRepository;
 import com.example.ogani.service.ProductService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -94,6 +96,12 @@ public class ProductServiceImpl implements ProductService {
         Product product= productRepository.findById(id).orElseThrow(() -> new NotFoundException("Not Found Product With Id: " + id));
         product.getImages().remove(this);
         productRepository.delete(product);
+    }
+
+    @Override
+    @Transactional
+    public void updateProductsCategory(UpdateCategoryForProductRequest request) {
+        productRepository.updateProductsCategory(request.getCategoryId(), request.getProductIds());
     }
 
     @Override
