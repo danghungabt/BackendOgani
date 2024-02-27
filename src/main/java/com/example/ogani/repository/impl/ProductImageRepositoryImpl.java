@@ -28,7 +28,7 @@ public class ProductImageRepositoryImpl implements ProductImageRepository {
 
     @Override
     public void deleteByListProductId(List<Long> ids) {
-        StringBuilder sql = new StringBuilder("DELETE FROM product_image WHERE image_id IN (");
+        StringBuilder sql = new StringBuilder("DELETE FROM product_image WHERE product_id IN (");
         String idsStr = ids.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(","));
