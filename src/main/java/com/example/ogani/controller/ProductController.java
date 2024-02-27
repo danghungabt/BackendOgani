@@ -115,11 +115,17 @@ public class ProductController {
         return ResponseEntity.ok(new MessageResponse("Category of product is updated"));
     }
 
+    @DeleteMapping("")
+    @Operation(summary="Xóa nhiều product bằng Id")
+    public ResponseEntity<?> deleteByListId(@RequestBody Long[] ids){
+        productService.deleteByListId(ids);
+        return ResponseEntity.ok(new MessageResponse("Delete success"));
+    }
+
     @DeleteMapping("/delete/{id}")
     @Operation(summary="Xóa sản phẩm bằng id")
     public ResponseEntity<?> deleteProduct(@PathVariable long id){
         productService.deleteProduct(id);
-
         return ResponseEntity.ok(new MessageResponse("Product is delete"));
     }
 

@@ -1,10 +1,9 @@
 package com.example.ogani.service.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.example.ogani.model.request.UpdateCategoryForProductRequest;
+import com.example.ogani.repository.ProductImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -32,6 +31,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ImageRepository imageRepository;
 
+    @Autowired
+    private ProductImageRepository productImageRepository;
+
     @Override
     public List<Product> getList() {
         // TODO Auto-generated method stub
@@ -58,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(()-> new NotFoundException("Not Found Category With Id: " + request.getCategoryId()));
         product.setCategory(category);
 
-        Set<Image> images = new HashSet<>();
+        List<Image> images = new ArrayList<>();
         for(long imageId: request.getImageIds()){
             Image image = imageRepository.findById(imageId).orElseThrow(() -> new NotFoundException("Not Found Image With Id: " + imageId));
             images.add(image);
@@ -79,7 +81,7 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(()-> new NotFoundException("Not Found Category With Id: " + request.getCategoryId()));
         product.setCategory(category);
 
-        Set<Image> images = new HashSet<>();
+        List<Image> images = new ArrayList<>();
         for(long imageId: request.getImageIds()){
             Image image = imageRepository.findById(imageId).orElseThrow(() -> new NotFoundException("Not Found Image With Id: " + imageId));
             images.add(image);
@@ -91,11 +93,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void deleteProduct(long id) {
-        // TODO Auto-generated method stub
-        Product product= productRepository.findById(id).orElseThrow(() -> new NotFoundException("Not Found Product With Id: " + id));
-        product.getImages().remove(this);
-        productRepository.delete(product);
+//        // TODO Auto-generated method stub
+//        Product product= productRepository.findById(id).orElseThrow(() -> new NotFoundException("Not Found Product With Id: " + id));
+////        product.getImages().remove(this);
+
+        productImageRepository.deleteByProductId(id);
+        productRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByListId(Long[] ids) {
+        productImageRepository.deleteByListProductId(Arrays.stream(ids).toList());
+        productRepository.deleteByIdIn(Arrays.stream(ids).toList());
     }
 
     @Override

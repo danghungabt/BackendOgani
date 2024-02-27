@@ -34,4 +34,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Modifying
     @Query(value = "UPDATE Product p SET p.category_id = :categoryId WHERE p.id IN :productIds", nativeQuery = true)
     void updateProductsCategory(@Param("categoryId") Long categoryId, @Param("productIds") List<Long> productIds);
+
+    void deleteByIdIn(List<Long> id);
 }

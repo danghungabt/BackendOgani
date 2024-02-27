@@ -99,6 +99,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public void deleteByListId(Long[] ids) {
+
+    }
+
+    @Override
     public List<Blog> getListNewest(int limit) {
         // TODO Auto-generated method stub
         List<Blog> list = blogRepository.getListNewest(limit);

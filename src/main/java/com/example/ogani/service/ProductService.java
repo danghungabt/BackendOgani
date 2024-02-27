@@ -30,6 +30,8 @@ public interface ProductService {
 
     void deleteProduct(long id);
 
+    void deleteByListId(Long[] ids);
+
     void updateProductsCategory(UpdateCategoryForProductRequest request);
 
 }

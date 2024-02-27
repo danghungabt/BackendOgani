@@ -19,4 +19,6 @@ public interface BlogService {
 
     void deleteBlog(long id);
 
+    void deleteByListId(Long[] ids);
+
 }

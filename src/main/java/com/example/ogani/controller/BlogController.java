@@ -78,6 +78,7 @@ public class BlogController {
 
     }
 
+
     @DeleteMapping("/delete/{id}")
     @Operation(summary="Xóa blog bằng Id")
     public ResponseEntity<?> delete(@PathVariable long id){

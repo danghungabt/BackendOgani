@@ -1,6 +1,8 @@
 package com.example.ogani.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -33,8 +35,8 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "product_image",joinColumns = @JoinColumn(name="product_id"),inverseJoinColumns = @JoinColumn(name="image_id"))
-    private Set<Image> images = new HashSet<>();
+    private List<Image> images = new ArrayList<>();
 
 }
